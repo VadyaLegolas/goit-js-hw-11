@@ -1,6 +1,6 @@
-import axios from 'axios';
-axios.defaults.headers.common['x-api-key'] =
-  'live_tUjJzgnldWMq1j0KXqo8xUPfkU0ZEQgWIOx6oI8Z4MApDV9Hp7RkOUWgC3xsOPtr';
+import PhotosApiService from './pixabay-api';
+
+import getRefs from './get-refs';
 
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
@@ -11,6 +11,17 @@ import { Confirm } from 'notiflix/build/notiflix-confirm-aio';
 import { Loading } from 'notiflix/build/notiflix-loading-aio';
 import { Block } from 'notiflix/build/notiflix-block-aio';
 
+const refs = getRefs();
+const photosApiService = new PhotosApiService()
+
+refs.form.addEventListener('submit', onFormSubmit)
+
+function onFormSubmit(e){
+    e.preventDefault();
+
+    photosApiService.query = e.currentTarget.elements.searchQuery.value;
+    photosApiService.fetchPhotos()
+}
 // var lightbox = new SimpleLightbox('.gallery a', { /* options */ });
 
 // const { height: cardHeight } = document
