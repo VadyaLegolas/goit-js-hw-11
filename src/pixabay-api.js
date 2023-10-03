@@ -9,6 +9,7 @@ export default class PhotosApiService {
   constructor() {
     this.searchQuery = '';
     this.page = 1;
+    this.perPage = 40;
   }
 
   get query() {
@@ -26,6 +27,8 @@ export default class PhotosApiService {
       image_type: 'photo',
       orientation: 'horizontal',
       safesearch: true,
+      page: this.page,
+      per_page: this.perPage,
     });
     const url = `${BASE_URL}?${params}`;
 
