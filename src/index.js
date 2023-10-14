@@ -12,7 +12,7 @@ import SearchBtn from './search-btn';
 
 const refs = getRefs();
 const photosApiService = new PhotosApiService();
-const searchBtn = new SearchBtn('.js-search')
+const searchBtn = new SearchBtn('.js-search');
 
 refs.form.addEventListener('submit', onFormSubmit);
 refs.more.addEventListener('click', onLoadMore);
@@ -22,9 +22,9 @@ function onFormSubmit(e) {
 
   photosApiService.query = e.currentTarget.elements.searchQuery.value;
   if (photosApiService.query === '') {
-    return Notify.warning(`Nothing to search!!!`)
+    return Notify.warning(`Nothing to search!!!`);
   }
-  searchBtn.disable()
+  searchBtn.disable();
   photosApiService.resetPage();
   photosApiService
     .fetchPhotos()
@@ -33,9 +33,9 @@ function onFormSubmit(e) {
       if (data.totalHits === 0) {
         throw new Error();
       }
-      Notify.info(`Hooray! We found ${data.totalHits} images.`)
+      Notify.info(`Hooray! We found ${data.totalHits} images.`);
       appendPhotosMarkup(data);
-      searchBtn.enable()
+      searchBtn.enable();
     })
     .catch(err => {
       Notify.failure(

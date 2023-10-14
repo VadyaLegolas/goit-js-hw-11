@@ -1,8 +1,6 @@
 export default class SearchBtn {
   constructor(selector) {
     this.refs = this.getRefs(selector);
-
-   
   }
 
   getRefs(selector) {
@@ -25,5 +23,4 @@ export default class SearchBtn {
     this.refs.label.textContent = 'Searching...';
     this.refs.spinner.classList.remove('is-hidden');
   }
-
 }
