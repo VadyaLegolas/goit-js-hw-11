@@ -1,15 +1,17 @@
 import axios from 'axios';
-axios.defaults.headers.common['x-api-key'] =
-  '39645635-7da43b24dbf787654135e35eb';
+
 
 const BASE_URL = 'https://pixabay.com/api/';
 const API_KEY = '39645635-7da43b24dbf787654135e35eb';
+
+axios.defaults.headers.common['x-api-key'] =
+  API_KEY;
 
 export default class PhotosApiService {
   constructor() {
     this.searchQuery = '';
     this.page = 1;
-    this.perPage = 40;
+    this.perPage = 5;
   }
 
   get query() {

@@ -8,9 +8,11 @@ import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import SearchBtn from './search-btn';
 
 const refs = getRefs();
 const photosApiService = new PhotosApiService();
+const searchBtn = new SearchBtn('.js-search')
 
 refs.form.addEventListener('submit', onFormSubmit);
 refs.more.addEventListener('click', onLoadMore);
@@ -19,6 +21,10 @@ function onFormSubmit(e) {
   e.preventDefault();
 
   photosApiService.query = e.currentTarget.elements.searchQuery.value;
+  if (photosApiService.query === '') {
+    return Notify.warning(`Nothing to search!!!`)
+  }
+  searchBtn.disable()
   photosApiService.resetPage();
   photosApiService
     .fetchPhotos()
@@ -29,6 +35,7 @@ function onFormSubmit(e) {
       }
       Notify.info(`Hooray! We found ${data.totalHits} images.`)
       appendPhotosMarkup(data);
+      searchBtn.enable()
     })
     .catch(err => {
       Notify.failure(
@@ -72,7 +79,7 @@ function createMarkup(data) {
         comments,
         downloads,
       }) => `<div class="photo-card">
-    <img src="${webformatURL}" alt="${tags}" width="300px" loading="lazy" />
+    <img src="${webformatURL}" alt="${tags}" width="300px" height="200px" loading="lazy" />
     <div class="info">
       <p class="info-item">
         <b>Likes: ${likes}</b>
