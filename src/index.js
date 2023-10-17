@@ -12,7 +12,7 @@ import SearchBtn from './search-btn';
 
 const refs = getRefs();
 const photosApiService = new PhotosApiService();
-const searchBtn = new SearchBtn('.js-search');
+const searchBtn = new SearchBtn('.js-search-btn');
 
 refs.form.addEventListener('submit', onFormSubmit);
 refs.more.addEventListener('click', onLoadMore);

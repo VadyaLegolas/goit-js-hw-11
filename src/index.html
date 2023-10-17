@@ -5,24 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Homework 11</title>
     <link rel="stylesheet" href="./sass/index.scss" />
-    <script type="module" src="./index.js"></script>
+    
   </head>
   <body>
     <form class="search-form" id="search-form">
       <input
         type="text"
         name="searchQuery"
+        class="js-input"
         autocomplete="off"
         placeholder="Search images..."
       />
-      <button type="submit" class="js-search">
-        <span>
+      <button type="submit" class="js-search-btn">
+        
           <svg width="16px" height="16px" class="js-search__icon">
             <use
               class="js-search__search-icon"
-              href="./images/search-svgrepo-com.svg"
+              href="./images/symbol-defs.svg#icon-search"
             ></use></svg>
-          </span>
+          
         <span
           class="spinner-border spinner-border-sm spinner is-hidden"
           role="status"
@@ -36,5 +37,6 @@
       <!-- Картки зображень -->
     </div>
     <button type="button" class="load-more">Load more</button>
+    <script type="module" src="./index.js"></script>
   </body>
 </html>
