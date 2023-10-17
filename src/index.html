@@ -16,8 +16,20 @@
         placeholder="Search images..."
       />
       <button type="submit" class="js-search">
-        <span class="spinner-border spinner-border-sm  spinner is-hidden" role="status" aria-hidden="true"></span>
-        <span class="label">Search</span></button>
+        <span>
+          <svg width="16px" height="16px" class="js-search__icon">
+            <use
+              class="js-search__search-icon"
+              href="./images/search-svgrepo-com.svg"
+            ></use></svg>
+          </span>
+        <span
+          class="spinner-border spinner-border-sm spinner is-hidden"
+          role="status"
+          aria-hidden="true"
+        ></span>
+        <span class="label">Search</span>
+      </button>
     </form>
 
     <div class="gallery">

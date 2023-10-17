@@ -37,7 +37,7 @@ function onFormSubmit(e) {
       appendPhotosMarkup(data);
       searchBtn.enable();
     })
-    .catch(err => {
+    .catch(() => {
       Notify.failure(
         'Sorry, there are no images matching your search query. Please try again.'
       );
