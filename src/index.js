@@ -13,6 +13,7 @@ import SearchBtn from './search-btn';
 const refs = getRefs();
 const photosApiService = new PhotosApiService();
 const searchBtn = new SearchBtn('.js-search-btn');
+let lightbox
 
 refs.form.addEventListener('submit', onFormSubmit);
 refs.more.addEventListener('click', onLoadMore);
@@ -36,12 +37,22 @@ function onFormSubmit(e) {
       Notify.info(`Hooray! We found ${data.totalHits} images.`);
       appendPhotosMarkup(data);
       searchBtn.enable();
+
+      lightbox = new SimpleLightbox('.photo-card a', {
+        captions: true,
+        captionsData: 'alt',
+        captionPosition: 'bottom',
+        captionDelay: 250,
+      });
+      
     })
     .catch(() => {
       Notify.failure(
         'Sorry, there are no images matching your search query. Please try again.'
       );
     });
+
+    
 }
 
 function onLoadMore() {
@@ -55,6 +66,8 @@ function onLoadMore() {
       }
 
       appendPhotosMarkup(data);
+      
+      lightbox.refresh();
     })
     .catch(err => {
       Notify.failure(
@@ -78,23 +91,26 @@ function createMarkup(data) {
         views,
         comments,
         downloads,
-      }) => `<div class="photo-card">
-    <img src="${webformatURL}" alt="${tags}" width="300px" height="200px" loading="lazy" />
-    <div class="info">
-      <p class="info-item">
-        <b>Likes: ${likes}</b>
-      </p>
-      <p class="info-item">
-        <b>Views: ${views}</b>
-      </p>
-      <p class="info-item">
-        <b>Comments: ${comments}</b>
-      </p>
-      <p class="info-item">
-        <b>Downloads: ${downloads}</b>
-      </p>
-    </div>
-  </div>`
+      }) => 
+      `<div class="photo-card">
+        <a href="${largeImageURL}">
+          <img src="${webformatURL}" alt="${tags}" width="300px" height="200px" loading="lazy" />
+          <div class="info">
+            <p class="info-item">
+              <b>Likes: ${likes}</b>
+            </p>
+            <p class="info-item">
+              <b>Views: ${views}</b>
+            </p>
+            <p class="info-item">
+              <b>Comments: ${comments}</b>
+            </p>
+            <p class="info-item">
+              <b>Downloads: ${downloads}</b>
+            </p>
+          </div>
+        </a>
+      </div>`
     )
     .join('');
 }
@@ -102,7 +118,9 @@ function createMarkup(data) {
 function clearMarkup() {
   refs.gallery.innerHTML = '';
 }
-// var lightbox = new SimpleLightbox('.gallery a', { /* options */ });
+
+
+
 
 // const { height: cardHeight } = document
 //   .querySelector(".gallery")
