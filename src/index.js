@@ -41,7 +41,7 @@ function onFormSubmit(e) {
     return Notify.warning(`Nothing to search!!!`);
   }
   searchBtn.disable();
-  // photosApiService.resetPage();
+  photosApiService.resetPage();
   photosApiService
     .fetchPhotos()
     .then(data => {
