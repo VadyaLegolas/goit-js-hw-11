@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Homework 11</title>
     <link rel="stylesheet" href="./sass/index.scss" />
-    
   </head>
   <body>
     <form class="search-form" id="search-form">
@@ -17,13 +16,13 @@
         placeholder="Search images..."
       />
       <button type="submit" class="js-search-btn">
-        
-          <svg width="16px" height="16px" class="js-search__icon">
-            <use
-              class="js-search__search-icon"
-              href="./images/symbol-defs.svg#icon-search"
-            ></use></svg>
-          
+        <svg width="16px" height="16px" class="js-search__icon">
+          <use
+            class="js-search__search-icon"
+            href="./images/symbol-defs.svg#icon-search"
+          ></use>
+        </svg>
+
         <span
           class="spinner-border spinner-border-sm spinner is-hidden"
           role="status"
@@ -35,8 +34,40 @@
 
     <div class="gallery">
       <!-- Картки зображень -->
+      <a
+        href="https://pixabay.com/get/gb6670a900748550237310abc9b0d75f7886a440074f03ddcd473620b23cb9d8832ad6f82d1cbd1df7e2eadac0571a22bd01fbce3f0591c3ae62e9711a3bb6a4e_1280.jpg"
+      >
+        <div class="photo-card">
+          <img
+            src="https://pixabay.com/get/g150e814f607675c40fb367ae81229b7979821feadaa095cd009033119a970b8bd643e5a05cc58c9193503860d647f0b8_640.jpg"
+            alt="${tags}"
+            width="300px"
+            height="200px"
+            loading="lazy"
+          />
+          <div class="info">
+            <p class="info-item">
+              <b>Likes: 84135</b>
+            </p>
+            <p class="info-item">
+              <b>Views: 1436632</b>
+            </p>
+            <p class="info-item">
+              <b>Comments: 12315</b>
+            </p>
+            <p class="info-item">
+              <b>Downloads: 56315</b>
+            </p>
+          </div>
+        </div></a>
+        <span
+          class="spinner-border spinner-border-sm spinner is-hidden"
+          role="status"
+          aria-hidden="true"
+        ></span>
     </div>
-    <button type="button" class="load-more">Load more</button>
+    <div class="js-guard"></div>
+    <!-- <button type="button" class="load-more">Load more</button> -->
     <script type="module" src="./index.js"></script>
   </body>
 </html>

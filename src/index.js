@@ -1,5 +1,3 @@
-//Замість кнопки «Load more», можна зробити нескінченне завантаження зображень під час прокручування сторінки. Ми надаємо тобі повну свободу дій в реалізації, можеш використовувати будь-які бібліотеки.
-
 import PhotosApiService from './pixabay-api';
 
 import getRefs from './get-refs';
@@ -13,10 +11,27 @@ import SearchBtn from './search-btn';
 const refs = getRefs();
 const photosApiService = new PhotosApiService();
 const searchBtn = new SearchBtn('.js-search-btn');
-let lightbox
+
+let lightbox;
+
+// Observer
+let options = {
+  root: null,
+  rootMargin: '300px',
+  threshold: 1.0,
+};
+
+let observer = new IntersectionObserver(onLoad, options);
+function onLoad(entries, observer) {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      onLoadMore();
+    }
+  });
+}
 
 refs.form.addEventListener('submit', onFormSubmit);
-refs.more.addEventListener('click', onLoadMore);
+// refs.more.addEventListener('click', onLoadMore);
 
 function onFormSubmit(e) {
   e.preventDefault();
@@ -26,7 +41,7 @@ function onFormSubmit(e) {
     return Notify.warning(`Nothing to search!!!`);
   }
   searchBtn.disable();
-  photosApiService.resetPage();
+  // photosApiService.resetPage();
   photosApiService
     .fetchPhotos()
     .then(data => {
@@ -38,35 +53,36 @@ function onFormSubmit(e) {
       appendPhotosMarkup(data);
       searchBtn.enable();
 
-      lightbox = new SimpleLightbox('.photo-card a', {
+      lightbox = new SimpleLightbox('.gallery a', {
         captions: true,
         captionsData: 'alt',
         captionPosition: 'bottom',
         captionDelay: 250,
       });
-      
+
+      observer.observe(refs.jsGuard);
     })
     .catch(() => {
       Notify.failure(
         'Sorry, there are no images matching your search query. Please try again.'
       );
     });
-
-    
 }
 
 function onLoadMore() {
   photosApiService
     .fetchPhotos()
     .then(data => {
-      const totalObj = photosApiService.perPage * (photosApiService.page - 2);
+      const totalPages = Math.ceil(
+        (data.totalHits + 1) / photosApiService.perPage
+      );
 
-      if (totalObj > data.totalHits) {
-        throw new Error();
+      if (photosApiService.page - 1 === totalPages) {
+        observer.unobserve(refs.jsGuard);
       }
 
       appendPhotosMarkup(data);
-      
+
       lightbox.refresh();
     })
     .catch(err => {
@@ -91,10 +107,10 @@ function createMarkup(data) {
         views,
         comments,
         downloads,
-      }) => 
-      `<div class="photo-card">
-        <a href="${largeImageURL}">
-          <img src="${webformatURL}" alt="${tags}" width="300px" height="200px" loading="lazy" />
+      }) =>
+        `<a href="${largeImageURL}">
+        <div class="photo-card">
+        <img src="${webformatURL}" alt="${tags}" width="300px" height="200px" loading="lazy" />
           <div class="info">
             <p class="info-item">
               <b>Likes: ${likes}</b>
@@ -109,8 +125,7 @@ function createMarkup(data) {
               <b>Downloads: ${downloads}</b>
             </p>
           </div>
-        </a>
-      </div>`
+        </div></a>`
     )
     .join('');
 }
@@ -118,9 +133,6 @@ function createMarkup(data) {
 function clearMarkup() {
   refs.gallery.innerHTML = '';
 }
-
-
-
 
 // const { height: cardHeight } = document
 //   .querySelector(".gallery")

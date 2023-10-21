@@ -9,7 +9,7 @@ export default class PhotosApiService {
   constructor() {
     this.searchQuery = '';
     this.page = 1;
-    this.perPage = 10;
+    this.perPage = 40;
   }
 
   get query() {
