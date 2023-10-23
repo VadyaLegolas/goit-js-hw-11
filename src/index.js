@@ -66,6 +66,7 @@ function onFormSubmit(e) {
       Notify.failure(
         'Sorry, there are no images matching your search query. Please try again.'
       );
+      searchBtn.enable();
     });
 }
 
@@ -113,7 +114,9 @@ function createMarkup(data) {
       }) =>
         `<a href="${largeImageURL}">
         <div class="photo-card">
+        <div class="photo-card__img">
         <img src="${webformatURL}" alt="${tags}" width="300px" height="200px" loading="lazy" />
+        </div>
           <div class="info">
             <p class="info-item">
               <b>Likes: </b><span>${likes}</span>
