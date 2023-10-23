@@ -49,7 +49,7 @@ function onFormSubmit(e) {
       if (data.totalHits === 0) {
         throw new Error();
       }
-      Notify.info(`Hooray! We found ${data.totalHits} images.`);
+      Notify.success(`Hooray! We found ${data.totalHits} images.`);
       appendPhotosMarkup(data);
       searchBtn.enable();
 
@@ -70,9 +70,11 @@ function onFormSubmit(e) {
 }
 
 function onLoadMore() {
+  refs.loader.classList.remove('is-hidden');
   photosApiService
     .fetchPhotos()
     .then(data => {
+      
       const totalPages = Math.ceil(
         (data.totalHits + 1) / photosApiService.perPage
       );
@@ -80,10 +82,11 @@ function onLoadMore() {
       if (photosApiService.page - 1 === totalPages) {
         observer.unobserve(refs.jsGuard);
       }
-
+      
       appendPhotosMarkup(data);
-
+      
       lightbox.refresh();
+      refs.loader.classList.add('is-hidden');
     })
     .catch(err => {
       Notify.failure(
@@ -113,16 +116,16 @@ function createMarkup(data) {
         <img src="${webformatURL}" alt="${tags}" width="300px" height="200px" loading="lazy" />
           <div class="info">
             <p class="info-item">
-              <b>Likes: ${likes}</b>
+              <b>Likes: </b><span>${likes}</span>
             </p>
             <p class="info-item">
-              <b>Views: ${views}</b>
+              <b>Views: </b><span>${views}</span>
             </p>
             <p class="info-item">
-              <b>Comments: ${comments}</b>
+              <b>Comments: </b><span>${comments}</span>
             </p>
             <p class="info-item">
-              <b>Downloads: ${downloads}</b>
+              <b>Downloads: </b><span>${downloads}</span>
             </p>
           </div>
         </div></a>`

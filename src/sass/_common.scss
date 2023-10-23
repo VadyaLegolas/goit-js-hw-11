@@ -1,47 +1,125 @@
 @import '~node_modules/modern-normalize/modern-normalize.css';
+a {
+  text-decoration: none;
+  color: black;
+}
+
 .gallery {
   flex-basis: 100%;
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
   gap: 10px;
+  margin-top: 100px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .photo-card {
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
   justify-content: space-between;
+  width: 350px;
+  margin-left: 10px;
+  height: 300px;
+  border: 1px solid #eee;
 
   // height: 100%;
   transition: box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
 
   &:hover,
   &:focus {
-    display: block;
+    // display: block;
     box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.12), 0px 4px 4px rgba(0, 0, 0, 0.06),
       1px 4px 6px rgba(0, 0, 0, 0.16);
   }
 }
 
+img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  object-position: center;
+}
+
 .info {
-  border: 1px solid #eeeeee;
-  border-top: none;
+  // border-top: none;
   flex-grow: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  padding: 10px 10px;
+  // padding-top: auto;
+  // height: 100%;
+}
+
+.info-item {
+  margin-bottom: 0;
+  margin-top: 0;
+}
+.info-item:not(:last-child) {
+  margin-right: 10px;
+}
+
+.info-item b {
+  display: block;
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+.info-item span {
+  display: block;
+  text-align: center;
+  margin-bottom: auto;
+}
+
+.container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #3f57b3;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border: none;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.12), 0px 4px 4px rgba(0, 0, 0, 0.06),
+    1px 4px 6px rgba(0, 0, 0, 0.16);
+}
+
+.js-input {
+  flex: 1;
+  border: none;
+  outline: none;
+}
+
+.js-search-btn {
+  border: none;
+  outline: none;
+  cursor: pointer;
 }
 
 .search-form {
-  background-color: blue;
-  padding-top: 15px;
-  padding-bottom: 15px;
-  margin-bottom: 15px;
   display: flex;
   justify-content: center;
-  // flex-direction:row;
-  
-  /* This bit draws the box around it */
-  border:1px solid grey;
+  width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  height: 35px;
 
-  /* I've used padding so you can see the edges of the elements. */
-  padding:1px;
+  &:hover,
+  &:focus {
+    outline: 2px solid #5bb2ff;
+  }
+}
+
+.is-hidden {
+  display: none;
+}
+
+span.is-hidden {
+  display: none;
 }
 
 button.is-hidden {
@@ -84,32 +162,65 @@ button > .spinner.is-hidden {
 }
 
 .js-search__search-icon {
-  fill: #000
+  fill: #000;
 }
 
-
-
-
-.js-input {
-  /* Tell the input to use all the available space */
-  // flex-grow:2;
-  /* And hide the input's outline, so the form looks like the outline */
-  border:none;
+.loader {
+  width: 48px;
+  height: 48px;
+  border: 3px solid #3f57b3;
+  border-radius: 50%;
+  display: block;
+  position: relative;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+}
+.loader::after {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 3px solid;
+  border-color: #ff3d00 transparent;
 }
 
-/* remove the input focus blue box, it will be in the wrong place. */
-.js-input:focus {
-  outline: none;
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
-/* Add the focus effect to the form so it contains the button */
-.search-form:focus-within { 
-  outline: 1px solid blue 
-}
+// .js-input {
+//   /* Tell the input to use all the available space */
+//   // flex-grow:2;
+//   /* And hide the input's outline, so the form looks like the outline */
+//   border:none;
+// }
 
-.js-search-btn {
-  /* Just a little styling to make it pretty */
-  border:1px solid blue;
-  background:grey;
-  color:white;
-}
+// /* remove the input focus blue box, it will be in the wrong place. */
+// .js-input:focus {
+//   outline: none;
+// }
+
+// /* Add the focus effect to the form so it contains the button */
+// .search-form:focus-within {
+//   outline: 1px solid blue
+// }
+
+// .js-search-btn {
+//   /* Just a little styling to make it pretty */
+//   border:1px solid blue;
+//   background:grey;
+//   color:white;
+// }

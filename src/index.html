@@ -7,65 +7,63 @@
     <link rel="stylesheet" href="./sass/index.scss" />
   </head>
   <body>
-    <form class="search-form" id="search-form">
-      <input
-        type="text"
-        name="searchQuery"
-        class="js-input"
-        autocomplete="off"
-        placeholder="Search images..."
-      />
-      <button type="submit" class="js-search-btn">
-        <svg width="16px" height="16px" class="js-search__icon">
-          <use
-            class="js-search__search-icon"
-            href="./images/symbol-defs.svg#icon-search"
-          ></use>
-        </svg>
+    <div class="container">
+      <form class="search-form" id="search-form">
+        <input
+          type="text"
+          name="searchQuery"
+          class="js-input"
+          autocomplete="off"
+          placeholder="Search images..."
+        />
+        <button type="submit" class="js-search-btn">
+          <svg width="16px" height="16px" class="js-search__icon">
+            <use
+              class="js-search__search-icon"
+              href="./images/symbol-defs.svg#icon-search"
+            ></use>
+          </svg>
 
-        <span
-          class="spinner-border spinner-border-sm spinner is-hidden"
-          role="status"
-          aria-hidden="true"
-        ></span>
-        <span class="label">Search</span>
-      </button>
-    </form>
+          <span
+            class="spinner-border spinner-border-sm spinner is-hidden"
+            role="status"
+            aria-hidden="true"
+          ></span>
+          <span class="label">Search</span>
+        </button>
+      </form>
+    </div>
 
     <div class="gallery">
       <!-- Картки зображень -->
       <a
-        href="https://pixabay.com/get/gb6670a900748550237310abc9b0d75f7886a440074f03ddcd473620b23cb9d8832ad6f82d1cbd1df7e2eadac0571a22bd01fbce3f0591c3ae62e9711a3bb6a4e_1280.jpg"
+        href="https://pixabay.com/get/g15ca9190a2d7acea2dc18e3efb0ac48df23ceb841149d0964d3e3f3a5e25a589d9ad068b81aa2c5866b47e12350ae7e14b3cb91b5a9ad818824fa87efecf4386_1280.jpg"
       >
         <div class="photo-card">
           <img
-            src="https://pixabay.com/get/g150e814f607675c40fb367ae81229b7979821feadaa095cd009033119a970b8bd643e5a05cc58c9193503860d647f0b8_640.jpg"
-            alt="${tags}"
-            width="300px"
-            height="200px"
+            src="https://pixabay.com/get/g54d60313deb57536a2d5d357f3bda24a77d4b36baed932ac91994ce8b17ea3da28c3d06130fec2b00fdcc2885a6ef41e_640.jpg"
+            alt="cat"
             loading="lazy"
           />
           <div class="info">
             <p class="info-item">
-              <b>Likes: 84135</b>
+              <b>Likes: </b><span>84135</span>
             </p>
             <p class="info-item">
-              <b>Views: 1436632</b>
+              <b>Views: </b><span>1436632</span>
             </p>
             <p class="info-item">
-              <b>Comments: 12315</b>
+              <b>Comments: </b><span>12315</span>
             </p>
             <p class="info-item">
-              <b>Downloads: 56315</b>
+              <b>Downloads: </b><span>56315</span>
             </p>
           </div>
-        </div></a>
-        <span
-          class="spinner-border spinner-border-sm spinner is-hidden"
-          role="status"
-          aria-hidden="true"
-        ></span>
+        </div></a
+      >
+     
     </div>
+    <span class="loader is-hidden"></span>
     <div class="js-guard"></div>
     <!-- <button type="button" class="load-more">Load more</button> -->
     <script type="module" src="./index.js"></script>
