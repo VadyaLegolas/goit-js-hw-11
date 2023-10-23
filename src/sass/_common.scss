@@ -103,7 +103,7 @@ img {
 .search-form {
   display: flex;
   justify-content: center;
-  width: 500px;
+  max-width: 500px;
   margin-left: auto;
   margin-right: auto;
   height: 35px;
