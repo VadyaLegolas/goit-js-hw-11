@@ -79,15 +79,14 @@ function onLoadMore() {
       const totalPages = Math.ceil(
         (data.totalHits + 1) / photosApiService.perPage
       );
-
-      if (photosApiService.page - 1 === totalPages) {
-        observer.unobserve(refs.jsGuard);
-      }
-      
       appendPhotosMarkup(data);
       
       lightbox.refresh();
       refs.loader.classList.add('is-hidden');
+      if (photosApiService.page - 1 === totalPages) {
+        observer.unobserve(refs.jsGuard);
+        throw new Error();
+      }
     })
     .catch(err => {
       Notify.failure(
