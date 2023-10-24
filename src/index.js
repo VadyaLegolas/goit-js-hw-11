@@ -33,7 +33,7 @@ function onLoad(entries, observer) {
 refs.form.addEventListener('submit', onFormSubmit);
 // refs.more.addEventListener('click', onLoadMore);
 
-function onFormSubmit(e) {
+async function onFormSubmit(e) {
   e.preventDefault();
   clearMarkup();
   photosApiService.query = e.currentTarget.elements.searchQuery.value;
@@ -42,61 +42,54 @@ function onFormSubmit(e) {
   }
   searchBtn.disable();
   photosApiService.resetPage();
-  photosApiService
-    .fetchPhotos()
-    .then(data => {
-      
-      if (data.totalHits === 0) {
-        throw new Error();
-      }
-      Notify.success(`Hooray! We found ${data.totalHits} images.`);
-      appendPhotosMarkup(data);
-      searchBtn.enable();
+  try {
+    const data = await photosApiService.fetchPhotos();
+    if (data.totalHits === 0) {
+      throw new Error();
+    }
+    Notify.success(`Hooray! We found ${data.totalHits} images.`);
+    appendPhotosMarkup(data);
+    searchBtn.enable();
 
-      lightbox = new SimpleLightbox('.gallery a', {
-        captions: true,
-        captionsData: 'alt',
-        captionPosition: 'bottom',
-        captionDelay: 250,
-      });
-
-      observer.observe(refs.jsGuard);
-    })
-    .catch(() => {
-      Notify.failure(
-        'Sorry, there are no images matching your search query. Please try again.'
-      );
-      searchBtn.enable();
+    lightbox = new SimpleLightbox('.gallery a', {
+      captions: true,
+      captionsData: 'alt',
+      captionPosition: 'bottom',
+      captionDelay: 250,
     });
+
+    observer.observe(refs.jsGuard);
+  } catch (error) {
+    Notify.failure(
+      'Sorry, there are no images matching your search query. Please try again.'
+    );
+    searchBtn.enable();
+  }
 }
 
-function onLoadMore() {
+async function onLoadMore() {
   refs.loader.classList.remove('is-hidden');
-  photosApiService
-    .fetchPhotos()
-    .then(data => {
-      
-      const totalPages = Math.ceil(
-        (data.totalHits + 1) / photosApiService.perPage
-      );
-      if (photosApiService.page - 1 === totalPages) {
-        observer.unobserve(refs.jsGuard);
-        Notify.info(
-        "We're sorry, but you've reached the end of search results."
-      );
-      }
-      
-      appendPhotosMarkup(data);
-      
-      lightbox.refresh();
-      refs.loader.classList.add('is-hidden');
-      
-    })
-    .catch(err => {
-      Notify.failure(
-        'Sorry, there are no images matching your search query. Please try again.'
-      );
-    });
+
+  try {
+    const data = await photosApiService.fetchPhotos();
+
+    const totalPages = Math.ceil(
+      (data.totalHits + 1) / photosApiService.perPage
+    );
+    if (photosApiService.page - 1 === totalPages) {
+      observer.unobserve(refs.jsGuard);
+      Notify.info("We're sorry, but you've reached the end of search results.");
+    }
+
+    appendPhotosMarkup(data);
+
+    lightbox.refresh();
+    refs.loader.classList.add('is-hidden');
+  } catch (error) {
+    Notify.failure(
+      'Sorry, there are no images matching your search query. Please try again.'
+    );
+  }
 }
 
 function appendPhotosMarkup(data) {
