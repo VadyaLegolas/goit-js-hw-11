@@ -35,7 +35,7 @@ refs.form.addEventListener('submit', onFormSubmit);
 
 function onFormSubmit(e) {
   e.preventDefault();
-
+  clearMarkup();
   photosApiService.query = e.currentTarget.elements.searchQuery.value;
   if (photosApiService.query === '') {
     return Notify.warning(`Nothing to search!!!`);
@@ -45,7 +45,7 @@ function onFormSubmit(e) {
   photosApiService
     .fetchPhotos()
     .then(data => {
-      clearMarkup();
+      
       if (data.totalHits === 0) {
         throw new Error();
       }
