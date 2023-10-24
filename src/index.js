@@ -81,7 +81,7 @@ function onLoadMore() {
       );
       if (photosApiService.page - 1 === totalPages) {
         observer.unobserve(refs.jsGuard);
-        Notify.failure(
+        Notify.info(
         "We're sorry, but you've reached the end of search results."
       );
       }
