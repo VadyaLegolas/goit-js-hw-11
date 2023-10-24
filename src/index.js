@@ -79,16 +79,18 @@ function onLoadMore() {
       const totalPages = Math.ceil(
         (data.totalHits + 1) / photosApiService.perPage
       );
-      appendPhotosMarkup(data);
-      
-      lightbox.refresh();
-      refs.loader.classList.add('is-hidden');
       if (photosApiService.page - 1 === totalPages) {
         observer.unobserve(refs.jsGuard);
         Notify.failure(
         "We're sorry, but you've reached the end of search results."
       );
       }
+      
+      appendPhotosMarkup(data);
+      
+      lightbox.refresh();
+      refs.loader.classList.add('is-hidden');
+      
     })
     .catch(err => {
       Notify.failure(
