@@ -85,12 +85,14 @@ function onLoadMore() {
       refs.loader.classList.add('is-hidden');
       if (photosApiService.page - 1 === totalPages) {
         observer.unobserve(refs.jsGuard);
-        throw new Error();
+        Notify.failure(
+        "We're sorry, but you've reached the end of search results."
+      );
       }
     })
     .catch(err => {
       Notify.failure(
-        "We're sorry, but you've reached the end of search results."
+        'Sorry, there are no images matching your search query. Please try again.'
       );
     });
 }
