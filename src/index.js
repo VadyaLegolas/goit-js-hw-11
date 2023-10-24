@@ -58,6 +58,14 @@ async function onFormSubmit(e) {
       captionDelay: 250,
     });
 
+    const { height: cardHeight } =
+      refs.gallery.firstElementChild.getBoundingClientRect();
+
+    window.scrollBy({
+      top: cardHeight * 2,
+      behavior: 'smooth',
+    });
+
     observer.observe(refs.jsGuard);
   } catch (error) {
     Notify.failure(
@@ -135,12 +143,3 @@ function createMarkup(data) {
 function clearMarkup() {
   refs.gallery.innerHTML = '';
 }
-
-// const { height: cardHeight } = document
-//   .querySelector(".gallery")
-//   .firstElementChild.getBoundingClientRect();
-
-// window.scrollBy({
-//   top: cardHeight * 2,
-//   behavior: "smooth",
-// });
